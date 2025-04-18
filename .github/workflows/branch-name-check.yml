@@ -1,0 +1,19 @@
+name: Enforce Branch Naming Convention
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  validate-branch-name:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check branch name
+        run: |
+          BRANCH_NAME=$(echo "${{ github.head_ref }}")
+          if [[ ! $BRANCH_NAME =~ ^(feat|fix|chore|refactor)/.+$ ]]; then
+            echo "Branch name '$BRANCH_NAME' does not follow the naming convention."
+            echo "Branch names must start with 'feat/', 'fix/', 'chore/', or 'refactor/' followed by a descriptive name."
+            exit 1
+          fi
