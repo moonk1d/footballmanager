@@ -1,0 +1,41 @@
+server:
+  port: 8081
+
+spring:
+  application:
+    name: football-tournament-app
+
+  jpa:
+    open-in-view: false
+    hibernate:
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+    properties:
+      hibernate:
+        format_sql: true
+
+  flyway:
+    locations: classpath:db/migration
+    baseline-on-migrate: true
+
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+    display-request-duration: true
+    groups-order: DESC
+    operations-sorter: method
+  info:
+    title: Football Tournament API
+    version: v1.0.0
+    description: API for managing football tournaments, leagues, teams, and players.
+  servers:
+    - url: http://localhost:8081
+      description: Local Development Server
+
+app:
+  security:
+    jwt:
+      token-validity-in-seconds: 3600 # 1 hour - example
+      # jwt-secret: MUST BE SET VIA ENV VARIABLE/SECRET MANAGEMENT IN PROD/TEST
