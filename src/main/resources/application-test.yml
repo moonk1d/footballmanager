@@ -1,0 +1,29 @@
+server:
+  port: 8083
+
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/tournament_test_db
+    username: admin
+    password: admin
+    driver-class-name: org.postgresql.Driver
+  devtools:
+    restart:
+      enabled: false
+
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: validate
+    show-sql: false
+
+  flyway:
+     enabled: true
+
+logging:
+  level:
+    com.nazarov.footballmanager: INFO
+    org.springframework: INFO
+    org.hibernate: WARN
