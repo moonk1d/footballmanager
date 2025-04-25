@@ -30,7 +30,6 @@ public class AuthController {
   @ApiResponse(responseCode = "400", description = "Invalid input or email already exists")
   @PostMapping("/register")
   public ResponseEntity<?> registerUser(@Valid @RequestBody UserRegistrationDto registrationDto) {
-    // Consider returning the created user ID or a simple success message
     User user = authService.registerUser(registrationDto);
     return ResponseEntity.created(URI.create("/api/users/" + user.getUserId()))
         .body("User registered successfully");
