@@ -71,24 +71,28 @@ class AuthControllerIT {
   void setUp() {
     userRepository.deleteAll();
 
-    validRegistrationDto = new UserRegistrationDto();
-    validRegistrationDto.setName("Test User Reg");
-    validRegistrationDto.setEmail("register@example.com");
-    validRegistrationDto.setPassword("password123");
-    validRegistrationDto.setDateOfBirth("1999-01-01");
+    validRegistrationDto = UserRegistrationDto.builder()
+        .name("Test User Reg")
+        .email("register@example.com")
+        .password("password123")
+        .dateOfBirth("1999-01-01")
+        .build();
 
-    invalidRegistrationDto = new UserRegistrationDto();
-    invalidRegistrationDto.setName("Test User");
-    invalidRegistrationDto.setEmail("");
-    invalidRegistrationDto.setPassword("password123");
+    invalidRegistrationDto = UserRegistrationDto.builder()
+        .name("Test User")
+        .email("")
+        .password("password123")
+        .build();
 
-    validLoginDto = new LoginRequestDto();
-    validLoginDto.setEmail("login@example.com");
-    validLoginDto.setPassword("password123");
+    validLoginDto = LoginRequestDto.builder()
+        .email("login@example.com")
+        .password("password123")
+        .build();
 
-    invalidLoginDto = new LoginRequestDto();
-    invalidLoginDto.setEmail("login@example.com");
-    invalidLoginDto.setPassword("wrongpassword");
+    invalidLoginDto = LoginRequestDto.builder()
+        .email("login@example.com")
+        .password("wrongpassword")
+        .build();
   }
 
   @Test
@@ -145,7 +149,8 @@ class AuthControllerIT {
             .contentType(MediaType.APPLICATION_JSON)
             .content(objectMapper.writeValueAsString(invalidRegistrationDto)))
         .andExpect(status().isBadRequest())
-        .andExpect(jsonPath("$.validationErrors.dateOfBirth").value("Date of birth must be in YYYY-MM-DD format"));
+        .andExpect(jsonPath("$.validationErrors.dateOfBirth").value(
+            "Date of birth must be in YYYY-MM-DD format"));
   }
 
   @Test

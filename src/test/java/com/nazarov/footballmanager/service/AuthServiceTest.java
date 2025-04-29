@@ -68,14 +68,16 @@ class AuthServiceTest {
   @BeforeEach
   void setUp() {
     // Common setup for tests
-    registrationDto = new UserRegistrationDto();
-    registrationDto.setName("Test User");
-    registrationDto.setEmail("test@example.com");
-    registrationDto.setPassword("password123");
+    registrationDto = UserRegistrationDto.builder()
+        .name("Test User")
+        .email("test@example.com")
+        .password("password123")
+        .build();
 
-    loginDto = new LoginRequestDto();
-    loginDto.setEmail("test@example.com");
-    loginDto.setPassword("password123");
+    loginDto = LoginRequestDto.builder()
+        .email("test@example.com")
+        .password("password123")
+        .build();
 
     userRole = new Role(1, "ROLE_USER");
 
@@ -83,7 +85,7 @@ class AuthServiceTest {
         .userId(1)
         .name("Test User")
         .email("test@example.com")
-        .password("encodedPassword") // Assume it's encoded
+        .password("encodedPassword")
         .roles(Collections.singleton(userRole))
         .build();
   }
